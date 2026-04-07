@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON GIGS | Professional Freelance Terminal</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #020204;
+            --card-glass: rgba(15, 15, 20, 0.8);
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00c1;
+            --neon-green: #39ff14;
+            --text-dim: #94a3b8;
+            --border-glow: rgba(0, 243, 255, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        body { 
+            background-color: var(--bg-dark); 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+        }
+
+        /* --- CYBER BACKGROUND --- */
+        .cyber-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, #0a0a1a 0%, #020204 100%),
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px) 0 0 / 40px 40px,
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px) 0 0 / 40px 40px;
+            z-index: -1;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 8%; background: rgba(2, 2, 4, 0.8);
+            backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border-glow);
+        }
+        .logo { font-family: 'Orbitron'; font-size: 1.6rem; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: 2px; cursor: pointer; }
+        .logo span { color: var(--neon-cyan); text-shadow: 0 0 15px var(--neon-cyan); }
+
+        .system-status { display: flex; align-items: center; gap: 8px; font-family: 'Orbitron'; font-size: 0.65rem; color: var(--neon-green); }
+        .pulse { width: 8px; height: 8px; background: var(--neon-green); border-radius: 50%; box-shadow: 0 0 10px var(--neon-green); animation: pulse 1.5s infinite; }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* --- HERO SECTION --- */
+        .hero { 
+            height: 60vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 10%;
+        }
+        .hero h1 { 
+            font-family: 'Orbitron'; font-size: clamp(2.5rem, 8vw, 4.5rem); 
+            line-height: 1; margin-bottom: 1.5rem; 
+            background: linear-gradient(to bottom, #fff 40%, var(--neon-cyan));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { color: var(--text-dim); max-width: 600px; letter-spacing: 1px; font-size: 1rem; }
+
+        /* --- PORTAL CARDS --- */
+        .portals { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 2.5rem; padding: 0 8% 5rem; max-width: 1200px; margin: -50px auto 0;
+        }
+        .portal-card {
+            background: var(--card-glass); padding: 3rem 2rem; border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05); text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+        }
+        .portal-card:hover { transform: translateY(-15px); border-color: var(--neon-cyan); box-shadow: 0 20px 40px rgba(0, 243, 255, 0.1); }
+        
+        .portal-card h2 { font-family: 'Orbitron'; margin-bottom: 1rem; font-size: 1.8rem; }
+        .portal-card p { color: var(--text-dim); margin-bottom: 2rem; font-size: 0.9rem; }
+
+        .btn-main {
+            display: inline-block; width: 100%; padding: 1.2rem; 
+            font-family: 'Orbitron'; font-weight: bold; text-transform: uppercase;
+            text-decoration: none; border-radius: 12px; cursor: pointer; transition: 0.3s;
+        }
+        .btn-cyan { background: var(--neon-cyan); color: #000; border: none; }
+        .btn-outline { background: transparent; border: 2px solid var(--neon-pink); color: var(--neon-pink); }
+        .btn-main:hover { box-shadow: 0 0 25px currentColor; transform: scale(1.02); }
+
+        /* --- BACK BUTTON STYLE --- */
+        .back-terminal-btn {
+            background: transparent;
+            border: 1px solid var(--neon-pink);
+            color: var(--neon-pink);
+            padding: 0.8rem 1.5rem;
+            font-family: 'Orbitron';
+            font-size: 0.75rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+        .back-terminal-btn:hover {
+            background: var(--neon-pink);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-pink);
+        }
+
+        /* --- SECTIONS --- */
+        .view-section { display: none; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .applicant-item {
+            background: #0a0a0f; padding: 1.5rem; border-radius: 15px; margin-bottom: 1rem;
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 4px solid var(--neon-pink);
+        }
+
+        /* --- SUCCESS OVERLAY --- */
+        #success-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .success-box { text-align: center; border: 2px solid var(--neon-green); padding: 4rem; border-radius: 30px; box-shadow: 0 0 50px rgba(57, 255, 20, 0.15); }
+
+        @media (max-width: 768px) { .portals { margin-top: 2rem; } .hero { height: auto; padding: 4rem 5%; } }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-bg"></div>
+
+    <nav>
+        <div class="logo" onclick="resetToTerminal()">NEON<span>GIGS</span></div>
+        <div class="system-status">
+            <div class="pulse"></div>
+            TERMINAL: ONLINE
+        </div>
+    </nav>
+
+    <div id="home-view">
+        <section class="hero">
+            <h1>THE FUTURE OF<br>FREELANCE</h1>
+            <p>Direct peer-to-peer talent acquisition for the decentralized age. Join the global network of top-tier engineers and designers.</p>
+        </section>
+
+        <section class="portals">
+            <div class="portal-card">
+                <h2>Talent</h2>
+                <p>Upload your professional dossier and get noticed by global tech giants instantly.</p>
+                <button class="btn-main btn-outline" onclick="showSection('upload')">Join Grid</button>
+            </div>
+            <div class="portal-card" style="border-color: rgba(0, 243, 255, 0.3);">
+                <h2>Employer</h2>
+                <p>Browse the most elite creative and technical minds. Zero friction recruitment.</p>
+                <button class="btn-main btn-cyan" onclick="showSection('browse')">Hire Now</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="browse-view" class="view-section container" style="padding: 4rem 8%;">
+        <button class="back-terminal-btn" onclick="resetToTerminal()">[ RETURN TO TERMINAL ]</button>
+        <h2 style="font-family:'Orbitron'; margin-bottom:3rem; text-align: left;">Active Talent Pools</h2>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:2rem;">
+            <div class="portal-card" style="padding:2rem;">
+                <h3 style="color:var(--neon-cyan); font-family:'Orbitron';">Engineering</h3>
+                <p>Senior Systems & Web Architecture</p>
+                <button class="btn-main btn-cyan" onclick="showApplicants('Engineering')">View Applicants</button>
+            </div>
+            <div class="portal-card" style="padding:2rem;">
+                <h3 style="color:var(--neon-cyan); font-family:'Orbitron';">Design</h3>
+                <p>UI/UX & Visual Interface Systems</p>
+                <button class="btn-main btn-cyan" onclick="showApplicants('Design')">View Applicants</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="applicant-list-view" class="view-section container" style="padding: 4rem 8%;">
+        <button class="back-terminal-btn" onclick="showSection('browse')">[ BACK TO POOLS ]</button>
+        <h2 id="pool-title" style="font-family:'Orbitron'; margin-bottom:3rem; text-align: left;">Applicants</h2>
+        <div id="list-container"></div>
+    </div>
+
+    <div id="upload-view" class="view-section container" style="padding: 4rem 8%; max-width:800px; margin:0 auto;">
+        <button class="back-terminal-btn" onclick="resetToTerminal()">[ RETURN TO TERMINAL ]</button>
+        <h2 style="font-family:'Orbitron'; color:var(--neon-pink); margin-bottom:2rem; text-align: left;">DOSSIER UPLOAD</h2>
+        <div class="portal-card" style="text-align:left;">
+            <form id="talentForm">
+                <div style="margin-bottom:1.5rem;">
+                    <label style="display:block; font-family:'Orbitron'; color:var(--neon-pink); font-size:0.7rem; margin-bottom:0.5rem;">Identity</label>
+                    <input type="text" id="name" placeholder="Name or Alias" required style="width:100%; padding:1rem; background:#05050a; border:1px solid #333; color:#fff; border-radius:8px;">
+                </div>
+                <div style="margin-bottom:1.5rem;">
+                    <label style="display:block; font-family:'Orbitron'; color:var(--neon-pink); font-size:0.7rem; margin-bottom:0.5rem;">Specialization</label>
+                    <select id="sector" style="width:100%; padding:1rem; background:#05050a; border:1px solid #333; color:#fff; border-radius:8px;">
+                        <option value="Engineering">Engineering</option>
+                        <option value="Design">Design</option>
+                    </select>
+                </div>
+                <div style="margin-bottom:1.5rem;">
+                    <label style="display:block; font-family:'Orbitron'; color:var(--neon-pink); font-size:0.7rem; margin-bottom:0.5rem;">Experience (Years)</label>
+                    <input type="number" id="exp" required style="width:100%; padding:1rem; background:#05050a; border:1px solid #333; color:#fff; border-radius:8px;">
+                </div>
+                <button type="submit" class="btn-main btn-cyan" style="background:var(--neon-pink); color:#fff; border:none;">Submit to Grid</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="success-overlay">
+        <div class="success-box">
+            <h1 style="font-family:'Orbitron'; color:var(--neon-green); margin-bottom:1rem;">PROTOCOL SUCCESS</h1>
+            <p id="success-msg" style="color:var(--text-dim); margin-bottom:2rem;"></p>
+            <button class="btn-main btn-cyan" onclick="resetToTerminal()">Return to Terminal</button>
+        </div>
+    </div>
+
+    <script>
+        // Mock Data
+        let applicants = {
+            'Engineering': [{name: 'Cipher_01', exp: 6}, {name: 'Null_Ptr', exp: 4}],
+            'Design': [{name: 'Aesthetic_Vibe', exp: 5}]
+        };
+
+        function resetToTerminal() {
+            document.getElementById('success-overlay').style.display = 'none';
+            document.querySelectorAll('.view-section').forEach(s => s.style.display = 'none');
+            document.getElementById('home-view').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function showSection(id) {
+            document.getElementById('home-view').style.display = 'none';
+            document.querySelectorAll('.view-section').forEach(s => s.style.display = 'none');
+            document.getElementById(id + '-view').style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function showApplicants(sector) {
+            showSection('applicant-list');
+            document.getElementById('pool-title').innerText = sector + " Candidates";
+            const container = document.getElementById('list-container');
+            container.innerHTML = '';
+
+            applicants[sector].forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'applicant-item';
+                div.innerHTML = `
+                    <div>
+                        <h4 style="font-family:'Orbitron'; color:var(--neon-cyan);">${p.name}</h4>
+                        <p style="color:var(--text-dim); font-size:0.8rem;">Experience: ${p.exp} Years</p>
+                    </div>
+                    <button class="btn-main btn-cyan" style="width:auto; padding:0.6rem 1.5rem; font-size:0.7rem;" onclick="finalize('${p.name}')">HIRE</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function finalize(name) {
+            document.getElementById('success-overlay').style.display = 'flex';
+            document.getElementById('success-msg').innerText = name + " has been successfully onboarded to your team.";
+        }
+
+        document.getElementById('talentForm').onsubmit = function(e) {
+            e.preventDefault();
+            const sector = document.getElementById('sector').value;
+            applicants[sector].push({
+                name: document.getElementById('name').value,
+                exp: document.getElementById('exp').value
+            });
+            alert("Dossier accepted into the " + sector + " grid.");
+            resetToTerminal();
+        }
+    </script>
+</body>
+</html>
